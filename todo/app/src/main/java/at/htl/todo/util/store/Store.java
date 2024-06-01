@@ -24,4 +24,3 @@ public class Store<T> {
         pipe.onNext(immer.produce(pipe.getValue(), recipe));
     }
 }
-

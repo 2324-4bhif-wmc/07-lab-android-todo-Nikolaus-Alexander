@@ -30,7 +30,7 @@ public class VehicleService {
 
     public void getAll() {
         CompletableFuture
-                .supplyAsync(() -> vehicleClient.all())
+                .supplyAsync(vehicleClient::all)
                 .thenAccept(store::setVehicles)
                 .exceptionally((e) -> {
                     Log.e(TAG, "Error loading Vehicles", e);
@@ -38,6 +38,32 @@ public class VehicleService {
                 });
     }
 
+    public void delete(Long id) {
+        CompletableFuture
+                .runAsync(() -> vehicleClient.delete(id)).thenRun(this::getAll)
+                .exceptionally((e) -> {
+                    Log.e(TAG, "Error deleting/loading Vehicles", e);
+                    return null;
+                });
+    }
 
+    public void post(Vehicle vehicle){
+        CompletableFuture
+                .runAsync(() -> vehicleClient.post(vehicle))
+                .thenRun(this::getAll)
+                .exceptionally((e) -> {
+                    Log.e(TAG, "Error putting/loading Vehicles", e);
+                    return null;
+                });
+    }
+
+    public void patch(Vehicle vehicle){
+        CompletableFuture
+                .runAsync(() -> vehicleClient.patch(vehicle))
+                .thenRun(this::getAll)
+                .exceptionally((e) -> {
+                    Log.e(TAG, "Error patching/loading Vehicles", e);
+                    return null;
+                });
+    }
 }
-
