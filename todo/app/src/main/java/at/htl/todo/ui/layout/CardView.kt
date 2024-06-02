@@ -81,7 +81,7 @@ class CardView @Inject constructor() {
             Spacer(modifier = Modifier.width(8.dp))
         }
         for (file in vehicle.imageFileNames) {
-            Log.e("PICTURE", "http://10.0.2.2:8090/vehicle/img/$file")
+            Log.i("PICTURE", "http://10.0.2.2:8090/vehicle/img/$file")
             GlideImage(
                 model = "http://10.0.2.2:8090/download/$file",
                 contentDescription = ""

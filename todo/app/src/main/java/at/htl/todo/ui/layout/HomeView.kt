@@ -1,5 +1,6 @@
 package at.htl.todo.ui.layout
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -67,14 +68,14 @@ class HomeView @Inject constructor() {
             modifier = modifier.padding(16.dp)
         ) {
             items(vehicles.size) { index ->
-                VehicleRow(vehicle = vehicles[index])
+                VehicleRow(vehicle = vehicles[index], model)
                 HorizontalDivider()
             }
         }
     }
 
     @Composable
-    fun VehicleRow(vehicle: Vehicle) {
+    fun VehicleRow(vehicle: Vehicle, model: Model) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,29 +83,39 @@ class HomeView @Inject constructor() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = vehicle.brand +" " + vehicle.imageFileNames[0],
+                text = vehicle.brand + " " + vehicle.brand,
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = vehicle.id.toString(),
+                text = "ID: " + vehicle.id.toString(),
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.width(8.dp))
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             OutlinedButton(
                 onClick = { vehicleService.delete(vehicle.id) },
                 modifier = Modifier
                     .height(40.dp)
             ) {
                 Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null
-            ) }
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
             OutlinedButton(
-                onClick = {store.apply{
-                    model -> model.uiState.selectedTab = UiState.Tab.create
-                }
+                onClick = {
+                    store.apply { model -> model.uiState.selectedTab = UiState.Tab.create }
+                    model.selectedVehicle = vehicle
+                    Log.e("", "SELECTED Vehicle succsessfully parsed to selectedVehicle");
+                    Log.e("", "SELECTED Vehicle: " + model.selectedVehicle.model);
                 },
                 modifier = Modifier
                     .height(40.dp)
@@ -112,7 +123,8 @@ class HomeView @Inject constructor() {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = null
-                ) }
+                )
+            }
         }
     }
 

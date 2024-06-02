@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -57,6 +56,7 @@ class TabView @Inject constructor() {
         val tab = model.uiState.selectedTab
         val tabIndex = tab.index()
         val selectedTab = remember { mutableIntStateOf(tabIndex) }
+        selectedTab.intValue = tabIndex
         val tabs = listOf("Home", "Create/Update","Cards")
         Column(modifier = Modifier.fillMaxWidth()) {
             TabRow(selectedTabIndex = selectedTab.intValue) {
@@ -104,7 +104,7 @@ class TabView @Inject constructor() {
         } else {
             when (selectedTab) {
                 0 -> homeScreenView.HomeScreen(model = store.pipe.value!!)
-                1 -> createView.CreateScreen(model = store.pipe.value!!)
+                1 -> createView.CreateScreen(model = store.pipe.value!!,Modifier)
                 2 -> cardView.CardScreen(model = store.pipe.value!!)
             }
         }

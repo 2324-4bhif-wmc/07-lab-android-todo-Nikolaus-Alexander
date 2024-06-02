@@ -1,5 +1,6 @@
 package at.htl.todo.ui.layout
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -59,7 +60,14 @@ class CreateView @Inject constructor() {
         var carBrand by rememberSaveable { mutableStateOf("") }
         var carModel by rememberSaveable { mutableStateOf("") }
         var carYear by rememberSaveable { mutableStateOf("") }
+        if(model.selectedVehicle != null){
+            carId = model.selectedVehicle.id.toString()
+            carBrand = model.selectedVehicle.brand
+            carModel = model.selectedVehicle.model
+            carYear = model.selectedVehicle.year.toString()
 
+            Log.e("","SELECTED Vehicle succsessfully parsed to createview");
+        }
         Column(
             modifier = modifier
                 .padding(16.dp)
@@ -68,20 +76,13 @@ class CreateView @Inject constructor() {
         ) {
 
             Text(
-                text = "Create new vehicle",
+                text = "Create/Update a vehicle",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.displaySmall
             )
 
             Spacer(modifier = Modifier.padding(8.dp))
 
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = carId,
-                onValueChange = { carId = it },
-                label = { Text(text = "Id") },
-                placeholder = { Text(text = "null if creating new") }
-            )
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -89,6 +90,13 @@ class CreateView @Inject constructor() {
                 onValueChange = { carBrand = it },
                 label = { Text(text = "Brand") },
                 placeholder = { Text(text = "e.g. Ford") }
+            )
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = carId,
+                onValueChange = { carId = it },
+                label = { Text(text = "Id") },
+                placeholder = { Text(text = "null if creating new") }
             )
 
             TextField(
