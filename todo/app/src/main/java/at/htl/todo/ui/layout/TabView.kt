@@ -51,7 +51,7 @@ class TabView @Inject constructor() {
         val tab = model.uiState.selectedTab
         val tabIndex = tab.index()
         val selectedTab = remember { mutableIntStateOf(tabIndex) }
-        val tabs = listOf("Home", "Create")
+        val tabs = listOf("Home", "Create/Update")
         Column(modifier = Modifier.fillMaxWidth()) {
             TabRow(selectedTabIndex = selectedTab.intValue) {
                 tabs.forEachIndexed { index, title ->
