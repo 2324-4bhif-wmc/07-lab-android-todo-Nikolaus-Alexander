@@ -4,7 +4,8 @@ public class UiState {
     /** the type of Tab - Bars in our main view */
     public enum Tab {
         home(0),
-        create(1);
+        create(1),
+        card(2);
 
         public int index() {
             return index;

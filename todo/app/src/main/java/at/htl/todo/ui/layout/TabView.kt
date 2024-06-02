@@ -1,4 +1,5 @@
 package at.htl.todo.ui.layout
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -6,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -40,6 +43,9 @@ class TabView @Inject constructor() {
     @Inject
     lateinit var createView: CreateView
 
+    @Inject
+    lateinit var cardView: CardView
+
     @Composable
     fun TabViewLayout() {
         val model = store.pipe
@@ -51,7 +57,7 @@ class TabView @Inject constructor() {
         val tab = model.uiState.selectedTab
         val tabIndex = tab.index()
         val selectedTab = remember { mutableIntStateOf(tabIndex) }
-        val tabs = listOf("Home", "Create/Update")
+        val tabs = listOf("Home", "Create/Update","Cards")
         Column(modifier = Modifier.fillMaxWidth()) {
             TabRow(selectedTabIndex = selectedTab.intValue) {
                 tabs.forEachIndexed { index, title ->
@@ -69,6 +75,11 @@ class TabView @Inject constructor() {
 
                                 1 -> Icon(
                                     imageVector = Icons.Default.Create,
+                                    contentDescription = null
+                                )
+
+                                2 -> Icon(
+                                    imageVector = Icons.Default.AccountCircle,
                                     contentDescription = null
                                 )
                             }
@@ -94,6 +105,7 @@ class TabView @Inject constructor() {
             when (selectedTab) {
                 0 -> homeScreenView.HomeScreen(model = store.pipe.value!!)
                 1 -> createView.CreateScreen(model = store.pipe.value!!)
+                2 -> cardView.CardScreen(model = store.pipe.value!!)
             }
         }
     }

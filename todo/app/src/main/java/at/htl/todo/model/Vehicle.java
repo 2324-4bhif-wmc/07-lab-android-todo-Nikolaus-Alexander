@@ -8,7 +8,10 @@ public class Vehicle {
     public String model;
     public Integer year;
 
+    public String imageFileNames[];
+
     public Vehicle() {
+        this.imageFileNames = new String[0];
     }
 
     public Vehicle(Long id, String brand, String model, Integer year) {
@@ -16,6 +19,7 @@ public class Vehicle {
         this.brand = brand;
         this.model = model;
         this.year = year;
+        this.imageFileNames = new String[0];
     }
 
     @NotNull
@@ -23,7 +27,6 @@ public class Vehicle {
         this.brand = brand;
         this.model = model;
         this.year = Integer.parseInt(year);
-
         return this;
     }
 }

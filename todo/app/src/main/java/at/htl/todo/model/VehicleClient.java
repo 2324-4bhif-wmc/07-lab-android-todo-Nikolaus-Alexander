@@ -22,6 +22,10 @@ public interface VehicleClient {
     @GET
     Vehicle[] all();
 
+    @GET
+    @Path("/img")
+    ImageVehicle[] allImages();
+
     //@PATCH
 
     @DELETE

@@ -62,19 +62,19 @@ class HomeView @Inject constructor() {
 
     @Composable
     fun HomeScreen(model: Model, modifier: Modifier = Modifier) {
-        val todos = model.vehicles
+        val vehicles = model.vehicles
         LazyColumn(
             modifier = modifier.padding(16.dp)
         ) {
-            items(todos.size) { index ->
-                VehicleRow(vehicle = todos[index],model)
+            items(vehicles.size) { index ->
+                VehicleRow(vehicle = vehicles[index])
                 HorizontalDivider()
             }
         }
     }
 
     @Composable
-    fun VehicleRow(vehicle: Vehicle,model: Model) {
+    fun VehicleRow(vehicle: Vehicle) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +82,7 @@ class HomeView @Inject constructor() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = vehicle.brand +" " + vehicle.model,
+                text = vehicle.brand +" " + vehicle.imageFileNames[0],
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.width(8.dp))
