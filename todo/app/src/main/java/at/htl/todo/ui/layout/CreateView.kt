@@ -65,8 +65,6 @@ class CreateView @Inject constructor() {
             carBrand = model.selectedVehicle.brand
             carModel = model.selectedVehicle.model
             carYear = model.selectedVehicle.year.toString()
-
-            Log.e("","SELECTED Vehicle succsessfully parsed to createview");
         }
         Column(
             modifier = modifier
@@ -80,9 +78,14 @@ class CreateView @Inject constructor() {
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.displaySmall
             )
-
             Spacer(modifier = Modifier.padding(8.dp))
-
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = carId,
+                onValueChange = { carId = it },
+                label = { Text(text = "Id") },
+                placeholder = { Text(text = "null if creating new") }
+            )
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -90,13 +93,6 @@ class CreateView @Inject constructor() {
                 onValueChange = { carBrand = it },
                 label = { Text(text = "Brand") },
                 placeholder = { Text(text = "e.g. Ford") }
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = carId,
-                onValueChange = { carId = it },
-                label = { Text(text = "Id") },
-                placeholder = { Text(text = "null if creating new") }
             )
 
             TextField(

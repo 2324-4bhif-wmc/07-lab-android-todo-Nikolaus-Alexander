@@ -112,10 +112,8 @@ class HomeView @Inject constructor() {
             Spacer(modifier = Modifier.width(16.dp))
             OutlinedButton(
                 onClick = {
-                    store.apply { model -> model.uiState.selectedTab = UiState.Tab.create }
                     model.selectedVehicle = vehicle
-                    Log.e("", "SELECTED Vehicle succsessfully parsed to selectedVehicle");
-                    Log.e("", "SELECTED Vehicle: " + model.selectedVehicle.model);
+                    store.apply { model -> model.uiState.selectedTab = UiState.Tab.create }
                 },
                 modifier = Modifier
                     .height(40.dp)
